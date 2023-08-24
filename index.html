@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>日本向大海排放核污染水计时</title>
+    <style>
+        #title {
+            font-size: 46px;
+            text-align: center;
+        }
+        #subtitle {
+            font-size: 30px;
+            text-align: center;
+        }
+
+        #countdown {
+            font-size: 80px;
+            font-weight: bold;
+            text-align: center;
+        }
+        body {
+            background-image: url('https://m1.miaomc.cn/uploads/20230824_64e72c759e7a5.jpg');
+            
+            
+            background-size: cover; 
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            
+            background-position: center center;
+        }
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 图片样式 */
+        .centered-image {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+    <script src="http://unpkg.com/i18next@22.4.13/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-browser-languagedetector@7.0.2/i18nextBrowserLanguageDetector.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageSelector = document.getElementById('languageSelector');
+            const titleElement = document.getElementById('title');
+            const subtitleElement = document.getElementById('subtitle');
+            const countdownElement = document.getElementById('countdown');
+
+            i18next.init({
+                resources: {
+                    en: {
+                        translation: {
+                            title: "Time since Japan released nuclear contaminated water into the sea",
+                            subtitle: "\"The world will never forget this day.\"",
+                            countdown: "{{days}} days {{hours}} hours {{minutes}} minutes {{seconds}} seconds"
+                        }
+                    },
+                    zh: {
+                        translation: {
+                            title: "距离日本向大海排放核污染水已经过去",
+                            subtitle: "「世界不会忘记这一天」",
+                            countdown: "{{days}} 天 {{hours}} 小时 {{minutes}} 分 {{seconds}} 秒"
+                        }
+                    }
+                },
+                lng: 'zh', // Default language
+                fallbackLng: 'zh',
+                interpolation: {
+                    escapeValue: false
+                }
+            });
+            titleElement.innerHTML = i18next.t('title',)
+            subtitleElement.innerHTML = i18next.t('subtitle',)
+
+            function updateCountdown() {
+                const targetDate = new Date("2023-08-24T12:00:00+08:00").getTime();
+                const timeRemaining = targetDate - Date.now();
+
+                const days = -parseInt(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = -parseInt((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = -parseInt((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = -parseInt((timeRemaining % (1000 * 60)) / 1000);
+
+                countdownElement.innerHTML = i18next.t('countdown', {
+                    days: days,
+                    hours: hours,
+                    minutes: minutes,
+                    seconds: seconds
+                });
+            }
+
+            languageSelector.addEventListener('change', function(event) {
+                i18next.changeLanguage(event.target.value, () => {
+                    titleElement.innerHTML = i18next.t('title',)
+                    subtitleElement.innerHTML = i18next.t('subtitle',)
+                    updateCountdown();
+                });
+            });
+
+            setInterval(updateCountdown,1000);
+        });
+    </script>
+</head>
+<body>
+    <select id="languageSelector">
+        <option value="zh">中文</option>
+        <option value="en">English</option>
+    </select>
+
+    <div id="title"></div>
+    <div id="subtitle"></div>
+    <br>
+    <br>
+    <div id="countdown"></div>
+    <br>
+    <div class="center-container">
+        <img class="centered-image" src="https://m1.miaomc.cn/uploads/20230824_64e72d9224e93.jpg">
+    </div>
+</body>
+</html>
