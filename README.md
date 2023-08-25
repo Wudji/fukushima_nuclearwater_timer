@@ -1,5 +1,6 @@
 # fukushima_nuclearwater_timer
- A timing page showing how long it has been since Japan released nuclear contaminated water into the sea.
+ A timing page showing how long it has been since Japan released nuclear contaminated water into the sea.  
+ 一个显示日本已经向大海排放核污水时长的计时器网页.
 
 🔄
 
